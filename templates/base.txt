@@ -1,0 +1,3 @@
+{% for device in device_details %}
+    {{ device["metric_name"] }} {{ device["metric_value"] }} {{ device["metric_timestamp"]}}
+{% endfor %}
