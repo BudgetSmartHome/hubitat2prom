@@ -12,6 +12,7 @@ RUN mkdir /app
 
 COPY requirements.txt /app/requirements.txt
 COPY app.py /app/app.py
+COPY templates /app/templates
 
 WORKDIR /app
 
