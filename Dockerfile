@@ -8,10 +8,11 @@ ENV HE_ACCESS_TOKEN=$HE_ACCESS_TOKEN
 
 RUN apk add --no-cache python3 py3-pip
 
-RUN mkdir /app
+RUN mkdir -p /app/config
 
 COPY requirements.txt /app/requirements.txt
 COPY app.py /app/app.py
+COPY templates /app/templates
 
 WORKDIR /app
 
@@ -19,4 +20,4 @@ RUN pip install -r requirements.txt
 
 EXPOSE 5000
 
-CMD gunicorn -c config.py -w 4 -b 0.0.0.0:5000 app:app
+CMD gunicorn -w 4 -b 0.0.0.0:5000 app:app
