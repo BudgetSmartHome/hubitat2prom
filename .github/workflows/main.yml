@@ -43,7 +43,7 @@ jobs:
           context: ./
           file: ./Dockerfile
           push: true
-          tags: ushamandya/simplewhale:latest
+          tags: proffalken/hubitat2prom:latest
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
