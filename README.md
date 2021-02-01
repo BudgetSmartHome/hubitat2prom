@@ -66,4 +66,8 @@ The default collections are:
   - temperature
 ```
 
+# Grafana
 
+There's a sample dashboard in the [grafana/](grafana) directory that you can [import into Grafana](https://grafana.com/docs/grafana/latest/dashboards/export-import/#importing-a-dashboard) to give you an idea of what is possible!
+
+![The sample Grafana dashboard](/screenshots/Hubitat2promOverview.png)
