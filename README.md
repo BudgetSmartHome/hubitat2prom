@@ -1,4 +1,4 @@
-# he2prom
+# hubitat2prom
 
 This application runs in a docker container, talks to the 
 [Hubitat Maker API](https://docs.hubitat.com/index.php?title=Maker_API)
