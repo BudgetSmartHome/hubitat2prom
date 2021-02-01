@@ -8,7 +8,7 @@ ENV HE_ACCESS_TOKEN=$HE_ACCESS_TOKEN
 
 RUN apk add --no-cache python3 py3-pip
 
-RUN mkdir /app
+RUN mkdir -p /app/config
 
 COPY requirements.txt /app/requirements.txt
 COPY app.py /app/app.py
