@@ -9,7 +9,8 @@ from flask import render_template, Flask, make_response
 app = Flask(__name__)
 
 # Load the config file
-with open("/app/config/hubitat2prom.yml", "r") as configfile:
+config_file = os.getenv("HE2PROM_CFG_FILE") or "/app/config/hubitat2prom.yml"
+with open(config_file, "r") as configfile:
     config = yaml.load(
             configfile,
             Loader=yaml.SafeLoader)

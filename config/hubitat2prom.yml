@@ -1,0 +1,10 @@
+hubitat:
+  base_uri: "http://my.hubitat/maker/api/url"
+  access_token: "my_hubitat_access_token"
+collected_metrics:
+  - battery
+  - humidity
+  - illuminance
+  - level
+  - switch
+  - temperature
