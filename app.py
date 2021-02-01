@@ -28,7 +28,7 @@ def metrics():
         for attrib  in device_details['attributes']:
             if attrib["name"] in collected_metrics:
                 device_attributes.append({
-                    "metric_name": f"{attrib['name']}_{device_details['label'].lower().replace(' ','_')}",
+                    "metric_name": f"{attrib['name']}_{device_details['label'].lower().replace(' ','_').replace('-','_')}",
                     "metric_value": f"{attrib['currentValue']}",
                     "metric_timestamp": time.time()})
 
