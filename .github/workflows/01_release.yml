@@ -3,7 +3,8 @@ name: Next Version
 
 on:
   pull_request:
-    types: create
+    branches:
+      - main
 
 jobs:
   build:
