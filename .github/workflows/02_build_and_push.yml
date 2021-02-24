@@ -28,7 +28,7 @@ jobs:
         id: docker_meta
         uses: crazy-max/ghaction-docker-meta@v1
         with:
-          images: proffalken/hubitat2prom,ghcr.io/budgetsmarthome/hubitat2prom
+          images: ghcr.io/budgetsmarthome/hubitat2prom
           tag-sha: true # add git short SHA as Docker tag
 
       - name: Login to Docker Hub
