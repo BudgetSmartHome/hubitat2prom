@@ -16,7 +16,7 @@ in the MakerAPI settings on your Hubitat device.
 
 Next, run the following command to start the container:
 
-`docker run --privileged -v "$(pwd)"/config:/app/config -p 5000:5000 proffalken/hubitat2prom:latest`
+`docker run --privileged -v "$(pwd)"/config:/app/config -p 5000:5000 budgetsmarthome/hubitat2prom:latest`
 
 **NOTE: THE CONTAINER REQUIRES PRIVILEGED ACCESS WHEN RUNNING ON ARM ARCHITECTURE DUE TO [THIS ISSUE](https://github.com/BudgetSmartHome/hubitat2prom/issues/4).**
 

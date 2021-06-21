@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI to Docker Hub
+name: Build and publish
 
 # Controls when the action will run. 
 on:
@@ -25,17 +25,29 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Docker meta
-        id: docker_meta
-        uses: crazy-max/ghaction-docker-meta@v1
+        id: meta
+        uses: docker/metadata-action@v3
         with:
-          images: proffalken/hubitat2prom # list of Docker images to use as base name for tags
-          tag-sha: true # add git short SHA as Docker tag
+          # list of Docker images to use as base name for tags
+          images: |
+            ghcr.io/budgetsmarthome/hubitat2prom
+          # generate Docker tags based on the following events/attributes
+          tags: |
+            type=schedule
+            type=ref,event=branch
+            type=ref,event=pr
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=semver,pattern={{major}}
+            type=sha
+            type=raw,value=latest,enable=${{ endsWith(github.ref, 'main') }}
 
       - name: Login to Docker Hub
         uses: docker/login-action@v1
         with:
-          username: ${{ secrets.DOCKER_HUB_USERNAME }}
-          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@master
@@ -54,8 +66,8 @@ jobs:
           file: ./Dockerfile
           push: true
           platforms: linux/amd64, linux/arm/v7, linux/arm/v6, linux/arm64
-          tags: ${{ steps.docker_meta.outputs.tags }}
-          labels: ${{ steps.docker_meta.outputs.labels }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
