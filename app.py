@@ -42,10 +42,11 @@ def metrics():
                             attrib["currentValue"] = 0
                     # Sanitise the device name as it will appear in the label
                     device_name = device_details['label'].lower().replace(' ','_').replace('-','_')
+                    metric_name = attrib['name'].lower().replace(' ','_').replace('-','_')
                     # Create the dict that holds the data
                     device_attributes.append({
                         "device_name": f"{device_name}",
-                        "metric_name": f"{attrib['name']}",
+                        "metric_name": f"{metric_name}",
                         "metric_value": f"{attrib['currentValue']}",
                         "metric_timestamp": time.time()})
     # Create the response
