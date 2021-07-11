@@ -42,6 +42,7 @@ def metrics():
                             attrib["currentValue"] = 0
                     # Sanitise the device name as it will appear in the label
                     device_name = device_details['label'].lower().replace(' ','_').replace('-','_')
+                    # Sanitise the metric name 
                     metric_name = attrib['name'].lower().replace(' ','_').replace('-','_')
                     # Create the dict that holds the data
                     device_attributes.append({
