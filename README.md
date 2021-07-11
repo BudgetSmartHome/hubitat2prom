@@ -16,9 +16,7 @@ in the MakerAPI settings on your Hubitat device.
 
 Next, run the following command to start the container:
 
-`docker run --privileged -v "$(pwd)"/config:/app/config -p 5000:5000 budgetsmarthome/hubitat2prom:latest`
-
-**NOTE: THE CONTAINER REQUIRES PRIVILEGED ACCESS WHEN RUNNING ON ARM ARCHITECTURE DUE TO [THIS ISSUE](https://github.com/BudgetSmartHome/hubitat2prom/issues/4).**
+`docker run --privileged -v "$(pwd)"/config:/app/config -p 5000:5000 ghcr.io/budgetsmarthome/hubitat2prom:sha-dba43ca`
 
 This will start the container listening on your local machine on port 5000, and you can visit 
 [http://localhost:5000/metrics](http://localhost:5000/metrics) to confirm that the metrics are coming through.
