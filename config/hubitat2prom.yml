@@ -8,3 +8,5 @@ collected_metrics:
   - level
   - switch
   - temperature
+  - power
+  - energy
