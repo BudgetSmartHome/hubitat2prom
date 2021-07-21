@@ -40,6 +40,14 @@ def metrics():
                             attrib["currentValue"] = 1
                         else:
                             attrib["currentValue"] = 0
+                    if attrib["name"] == "power":
+                        if attrib["currentValue"] == "on":
+                            attrib["currentValue"] = 1
+                        elif attrib["currentValue"] == "off":
+                            attrib["currentValue"] = 0
+                        else:
+                            attrib["currentValue"] = attrib["currentValue"]
+
                     # Sanitise the device name as it will appear in the label
                     device_name = device_details['label'].lower().replace(' ','_').replace('-','_')
                     # Sanitise the metric name 
