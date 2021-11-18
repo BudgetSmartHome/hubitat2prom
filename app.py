@@ -2,29 +2,46 @@ import json
 import os
 import requests
 import time
-import yaml
 
-from flask import render_template, Flask, make_response
+from flask import render_template, Flask, make_response, Response
 
 app = Flask(__name__)
 
-# Load the config file
-config_file = os.getenv("HE2PROM_CFG_FILE") or "/app/config/hubitat2prom.yml"
-with open(config_file, "r") as configfile:
-    config = yaml.load(
-            configfile,
-            Loader=yaml.SafeLoader)
+# Load the configuration values from environment variables - HE_URI and HE_TOKEN
+# are mandatory, however a default collection of metrics is provided if the
+# HE_METRICS env is missing.
+try:
+    base_uri = os.environ["HE_URI"]
+    access_token = os.environ["HE_TOKEN"]
+    collected_metrics = os.getenv("HE_METRICS", "battery,humidity,illuminance,level,switch,temperature,power,energy").split(",")
+except KeyError as e:
+    print(f"Could not read the environment variable - {e}")
 
-base_uri = config["hubitat"]["base_uri"]
-access_token = config["hubitat"]["access_token"]
+def get_devices():
+    return requests.get(f"{base_uri}?access_token={access_token}")
 
-# This is the default set of metrics to be collected
-collected_metrics = config['collected_metrics']
+@app.route("/info")
+def info():
+    res = {
+        "status": {
+            "CONNECTION": "ONLINE" if get_devices().status_code == 200 else "OFFLINE"
+        },
+        "config": {
+            "HE_URI": base_uri,
+            "HE_TOKEN": access_token,
+            "HE_METRICS": collected_metrics
+        }
+    }
+    response = app.response_class(
+        response=json.dumps(res),
+        status=200,
+        mimetype='application/json'
+    )
+    return response
 
 @app.route("/metrics")
 def metrics():
-    devices = requests.get(f"{base_uri}?access_token={access_token}")
-
+    devices = get_devices()
     device_attributes = []
 
     for device in devices.json():
