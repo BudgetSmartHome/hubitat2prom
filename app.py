@@ -64,6 +64,13 @@ def metrics():
                             attrib["currentValue"] = 0
                         else:
                             attrib["currentValue"] = attrib["currentValue"]
+                     if attrib["name"] == "motion":
+                        if attrib["currentValue"] == "active":
+                            attrib["currentValue"] = 1
+                        elif attrib["currentValue"] == "inactive":
+                            attrib["currentValue"] = 0
+                        else:
+                            attrib["currentValue"] = 0
 
                     # Sanitise the device name as it will appear in the label
                     device_name = device_details['label'].lower().replace(' ','_').replace('-','_')
