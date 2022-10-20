@@ -1,3 +1,3 @@
 {% for device in device_details %}
-{{ device["metric_name"] }}{device_name="{{device['device_name']}}"} {{ device["metric_value"] }}
+{{ device["metric_name"] }}{device_name="{{device['device_name']}}",device_human_label="{{device['device_human_label']}}",device_label="{{device['device_label']}}",device_type="{{device['device_type']}}",device_id="{{device['device_id']}}"} {{ device["metric_value"] }}
 {% endfor %}
