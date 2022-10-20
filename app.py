@@ -57,6 +57,11 @@ def metrics():
                             attrib["currentValue"] = 1
                         else:
                             attrib["currentValue"] = 0
+                    if attrib["name"] == "water":
+                        if attrib["currentValue"] == "dry":
+                            attrib["currentValue"] = 1
+                        else:
+                            attrib["currentValue"] = 0
                     if attrib["name"] == "power":
                         if attrib["currentValue"] == "on":
                             attrib["currentValue"] = 1
