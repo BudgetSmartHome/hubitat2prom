@@ -57,6 +57,20 @@ def metrics():
                             attrib["currentValue"] = 1
                         else:
                             attrib["currentValue"] = 0
+
+                    if attrib["name"] == "contact":
+                        if attrib["currentValue"] == "closed":
+                            attrib["currentValue"] = 0
+                        elif attrib["currentValue"] == "open":
+                            attrib["currentValue"] = 1
+
+                    if attrib["name"] == "acceleration" or \
+                       attrib["name"] == "motion":
+                        if attrib["currentValue"] == "active":
+                            attrib["currentValue"] = 1
+                        elif attrib["currentValue"] == "inactive":
+                            attrib["currentValue"] = 0
+
                     if attrib["name"] == "power":
                         if attrib["currentValue"] == "on":
                             attrib["currentValue"] = 1
@@ -67,7 +81,7 @@ def metrics():
 
                     # Sanitise the device name as it will appear in the label
                     device_name = device_details['label'].lower().replace(' ','_').replace('-','_')
-                    # Sanitise the metric name 
+                    # Sanitise the metric name
                     metric_name = attrib['name'].lower().replace(' ','_').replace('-','_')
                     # Create the dict that holds the data
                     device_attributes.append({
