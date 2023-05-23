@@ -8,7 +8,7 @@ itsdangerous==1.1.0
 Jinja2==2.11.3
 MarkupSafe==1.1.1
 PyYAML==5.4.1
-requests==2.25.1
+requests==2.31.0
 urllib3==1.26.5
 Werkzeug==1.0.1
 setuptools>=65.5.1 # not directly required, pinned by Snyk to avoid a vulnerability
