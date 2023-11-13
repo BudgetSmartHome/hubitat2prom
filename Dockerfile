@@ -1,4 +1,4 @@
-FROM alpine:latest
+FROM alpine:3.18.3
 
 ARG HE_URI="myhubitatdevice"
 ARG HE_ACCESS_TOKEN="my-access-token"
