@@ -58,23 +58,16 @@ def metrics():
                     value = device['attributes'][attrib]
                     # Does it have a "proper" value?
                     if value is not None:
-                        # If it's a switch, then change from text to binary values
-                        if attrib == "switch":
-                            if value == "on":
-                                value = 1
-                            else:
-                                value = 0
-                        if attrib == "water":
-                            if value == "dry":
-                                value = 1
-                            else:
-                                value = 0
-                        if attrib == "power":
-                            if value == "on":
-                                value = 1
-                            elif value == "off":
-                                value = 0
-    
+                        # If the value is one of the defined binary strings,
+                        # then change from text to binary values
+                        true_values = ["on", "dry", "active"]
+                        false_values = ["off", "wet", "inactive"]
+
+                        if value in true_values:
+                            value = 1
+                        elif value in false_values:
+                            value = 0
+
                         # Sanitize to allow Prometheus Ingestion
                         device_name = sanitize(device['name'])
                         device_label = sanitize(device['label'])
