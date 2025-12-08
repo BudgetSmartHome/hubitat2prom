@@ -6,6 +6,8 @@ import re
 
 from flask import render_template, Flask, make_response, Response
 
+from attributes.transformer import AttributeTransformer
+
 app = Flask(__name__)
 
 # Load the configuration values from environment variables - HE_URI and HE_TOKEN
@@ -57,24 +59,10 @@ def metrics():
                 if attrib in collected_metrics:
                     value = device['attributes'][attrib]
                     # Does it have a "proper" value?
+                    
                     if value is not None:
-                        # If it's a switch, then change from text to binary values
-                        if attrib == "switch":
-                            if value == "on":
-                                value = 1
-                            else:
-                                value = 0
-                        if attrib == "water":
-                            if value == "dry":
-                                value = 1
-                            else:
-                                value = 0
-                        if attrib == "power":
-                            if value == "on":
-                                value = 1
-                            elif value == "off":
-                                value = 0
-    
+                        device_type = sanitize(device['type'])
+                        device_state, value = AttributeTransformer(device_type, attrib).transform(value)
                         # Sanitize to allow Prometheus Ingestion
                         device_name = sanitize(device['name'])
                         device_label = sanitize(device['label'])
@@ -85,13 +73,15 @@ def metrics():
                         # Create the dict that holds the data
                         device_attributes.append({
                             "device_name": f"{device_name}",
+                            "device_state": f"{device_state}",
                             "device_label": f"{device_label}",
                             "device_human_label": f"{device_human_label}",
                             "device_type": f"{device_type}",
                             "device_id": f"{device_id}",
                             "metric_name": f"{metric_name}",
                             "metric_value": f"{value}",
-                            "metric_timestamp": time.time()})
+                            "metric_timestamp": time.time()}
+                        )
         # Create the response
         response = make_response(render_template('base.txt',
              device_details=device_attributes
